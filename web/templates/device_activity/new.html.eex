@@ -1,0 +1,6 @@
+<h2>New device activity</h2>
+
+<p class="alert alert-info" role="alert"><%= @info %></p>
+
+<%= render "form.html", changeset: @changeset,
+                        action: device_activity_path(@conn, :create), device_activity: @device_activity %>

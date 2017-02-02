@@ -17,8 +17,8 @@ defmodule Talky.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+   resources "/device_activities", DeviceActivityController
   end
-
   # Other scopes may use custom stacks.
   # scope "/api", Talky do
   #   pipe_through :api

@@ -1,0 +1,63 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= label f, :assigned_date, class: "control-label" %>
+    <%= date_select f, :assigned_date, class: "form-control", required: true, value: @device_activity["assigned_date"] %>
+    <%= error_tag f, :assigned_date %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :user_id, class: "control-label" %>
+    <%= text_input f, :user_id, class: "form-control", required: true, value: @device_activity["user_id"] %>
+    <%= error_tag f, :user_id %>
+  </div>
+  <div class="form-group">
+    <%= label f, :duration, class: "control-label" %>
+    <%= number_input f, :duration, class: "form-control", required: true, value: @device_activity["duration"] %>
+    <%= error_tag f, :duration %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :details, class: "control-label" %>
+    <%= error_tag f, :details %>
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon3">Striiv -- Steps:</span>
+          <input type="hidden" class="form-control" name="device_activity[details][0][source]" value="striiv">
+          <input type="number" class="form-control" name="device_activity[details][0][steps]" placeholder="steps" max="10000" aria-describedby="basic-addon3" value="<%=@device_activity["details"]["0"]["steps"]%>">
+          <span class="input-group-addon">Duration:</span>
+          <input type="number" class="form-control" name="device_activity[details][0][duration]" placeholder="duration(min)" max="1000" aria-describedby="basic-addon3" value="<%=@device_activity["details"]["0"]["duration"]%>">
+          <span class="input-group-addon">Calories:</span>
+          <input type="number" class="form-control" name="device_activity[details][0][calories]" placeholder="calories" max="10000" aria-describedby="basic-addon3" value="<%=@device_activity["details"]["0"]["calories"]%>">
+       </div>
+
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon3">Fitbit -- Steps:</span>
+          <input type="hidden" class="form-control" name="device_activity[details][1][source]" value="fitbit">
+          <input type="number" class="form-control" name="device_activity[details][1][steps]" placeholder="steps" max="10000" aria-describedby="basic-addon3" value="<%=@device_activity["details"]["1"]["steps"]%>">
+          <span class="input-group-addon">Duration:</span>
+          <input type="number" class="form-control" name="device_activity[details][1][duration]" placeholder="duration(min)" max="1000" aria-describedby="basic-addon3" value="<%=@device_activity["details"]["1"]["duration"]%>">
+          <span class="input-group-addon">Calories:</span>
+          <input type="number" class="form-control" name="device_activity[details][1][calories]" placeholder="calories" max="10000" aria-describedby="basic-addon3" value="<%=@device_activity["details"]["1"]["calories"]%>">
+       </div>
+
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon3">Jawb -- Steps:</span>
+          <input type="hidden" class="form-control" name="device_activity[details][2][source]" value="jawbone">
+          <input type="number" class="form-control" name="device_activity[details][2][steps]" placeholder="steps" max="10000" aria-describedby="basic-addon3" value="<%=@device_activity["details"]["2"]["steps"]%>">
+          <span class="input-group-addon">Duration:</span>
+          <input type="number" class="form-control" name="device_activity[details][2][duration]" placeholder="duration(min)" max="1000" aria-describedby="basic-addon3" value="<%=@device_activity["details"]["2"]["duration"]%>">
+          <span class="input-group-addon">Calories:</span>
+          <input type="number" class="form-control" name="device_activity[details][2][calories]" placeholder="calories" max="10000" aria-describedby="basic-addon3" value="<%=@device_activity["details"]["2"]["calories"]%>">
+       </div>
+  </div>
+
+
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>

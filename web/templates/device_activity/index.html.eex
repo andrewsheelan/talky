@@ -1,0 +1,32 @@
+<h2>Listing device activities</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Duration</th>
+      <th>Details</th>
+      <th>Assigned date</th>
+      <th>User</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for device_activity <- @device_activities do %>
+    <tr>
+      <td><%= device_activity.duration %></td>
+      <td><%= device_activity.details %></td>
+      <td><%= device_activity.assigned_date %></td>
+      <td><%= device_activity.user_id %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: device_activity_path(@conn, :show, device_activity), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: device_activity_path(@conn, :edit, device_activity), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: device_activity_path(@conn, :delete, device_activity), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New device activity", to: device_activity_path(@conn, :new) %>

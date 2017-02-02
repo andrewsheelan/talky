@@ -1,0 +1,28 @@
+<h2>Show device activity</h2>
+
+<ul>
+
+  <li>
+    <strong>Duration:</strong>
+    <%= @device_activity.duration %>
+  </li>
+
+  <li>
+    <strong>Details:</strong>
+    <%= @device_activity.details %>
+  </li>
+
+  <li>
+    <strong>Assigned date:</strong>
+    <%= @device_activity.assigned_date %>
+  </li>
+
+  <li>
+    <strong>User:</strong>
+    <%= @device_activity.user_id %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: device_activity_path(@conn, :edit, @device_activity) %>
+<%= link "Back", to: device_activity_path(@conn, :index) %>
