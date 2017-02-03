@@ -10,7 +10,7 @@ defmodule Talky.DeviceActivityController do
   def new(conn, _params) do
     changeset = DeviceActivity.changeset(%DeviceActivity{})
     info = ""
-    render(conn, "new.html", changeset: changeset, info: info, device_activity: %{})
+    render(conn, "new.html", changeset: changeset, info: info, device_activity: %{"assigned_date" => DateTime.utc_now})
   end
   def parse_int(:error), do: 0
   def parse_int({x,_}), do: x
