@@ -4,8 +4,7 @@ defmodule Talky.DeviceActivityController do
   alias Talky.DeviceActivity
 
   def index(conn, _params) do
-    device_activities = Repo.all(DeviceActivity)
-    render(conn, "index.html", device_activities: device_activities)
+    new(conn, _params)
   end
 
   def new(conn, _params) do
@@ -24,13 +23,17 @@ defmodule Talky.DeviceActivityController do
     duration = Enum.reduce(details, 0, fn(i,acc) -> parse_int(Integer.parse(i["duration"])) + acc end)
     email = device_activity_params["email"]
     user_id = Repo.one(from u in Talky.User, where: u.email == ^email, select: u.id)
-    DeviceActivity.insert_record(
-        user_id,
-        assigned_date,
-        duration,
-        details
-    )
-    info = "Device activity created/updated successfully."
+    if user_id do
+        DeviceActivity.insert_record(
+            user_id,
+            assigned_date,
+            duration,
+            details
+        )
+        info = "Device activity created/updated successfully."
+    else
+       info = "User Not Found"
+    end
     changeset = DeviceActivity.changeset(%DeviceActivity{})
     render(conn, "new.html", changeset: changeset, info: info, device_activity: device_activity_params)
   end
