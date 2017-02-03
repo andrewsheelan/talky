@@ -21,7 +21,7 @@ defmodule Talky.DeviceActivity do
 
   def insert_record(user_id, assigned_date, duration, details) do
     datetime = DateTime.utc_now() |> DateTime.to_iso8601()
-    darray = Enum.map(1..round(duration/10), fn _ -> '10' end) |> Enum.join(",")
+    darray = Enum.map(1..div(duration,10), fn _ -> '10' end) |> Enum.join(",")
     duration = "{#{darray}}"
     details  = Poison.encode!(details)
     query   = """
