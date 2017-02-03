@@ -13,15 +13,19 @@ defmodule Talky.DeviceActivityController do
     info = ""
     render(conn, "new.html", changeset: changeset, info: info, device_activity: %{})
   end
-
+  def parse_int(:error), do: 0
+  def parse_int({x,_}), do: x
   def create(conn, %{"device_activity" => device_activity_params}) do
     %{"day" => day, "month" => month, "year" => year} = device_activity_params["assigned_date"]
     assigned_date = "#{year}-#{month}-#{day}"
-    details = device_activity_params["details"] |> Enum.map(fn({_,v}) -> v end)
-    {duration, _} = Integer.parse(device_activity_params["duration"])
-    IO.puts duration
+    details = device_activity_params["details"]
+              |> Enum.map(fn({_,v}) -> v end)
+              |> Enum.filter(fn(x) -> String.strip(x["steps"])!= "" || String.strip(x["duration"]) != "" || String.strip(x["calories"]) != "" end)
+    duration = Enum.reduce(details, 0, fn(i,acc) -> parse_int(Integer.parse(i["duration"])) + acc end)
+    email = device_activity_params["email"]
+    user_id = Repo.one(from u in Talky.User, where: u.email == ^email, select: u.id)
     DeviceActivity.insert_record(
-        device_activity_params["user_id"],
+        user_id,
         assigned_date,
         duration,
         details
