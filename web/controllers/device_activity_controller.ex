@@ -15,24 +15,28 @@ defmodule Talky.DeviceActivityController do
   def parse_int(:error), do: 0
   def parse_int({x,_}), do: x
   def create(conn, %{"device_activity" => device_activity_params}) do
-    %{"day" => day, "month" => month, "year" => year} = device_activity_params["assigned_date"]
-    assigned_date = "#{year}-#{month}-#{day}"
-    details = device_activity_params["details"]
-              |> Enum.map(fn({_,v}) -> v end)
-              |> Enum.filter(fn(x) -> String.strip(x["steps"])!= "" || String.strip(x["duration"]) != "" || String.strip(x["calories"]) != "" end)
-    duration = Enum.reduce(details, 0, fn(i,acc) -> parse_int(Integer.parse(i["duration"])) + acc end)
-    email = device_activity_params["email"]
-    user_id = Repo.one(from u in Talky.User, where: u.email == ^email, select: u.id)
-    if user_id do
-        DeviceActivity.insert_record(
-            user_id,
-            assigned_date,
-            duration,
-            details
-        )
-        info = "Device activity created/updated successfully."
-    else
-       info = "User Not Found"
+    info = try do
+        %{"day" => day, "month" => month, "year" => year} = device_activity_params["assigned_date"]
+        assigned_date = "#{year}-#{month}-#{day}"
+        details = device_activity_params["details"]
+                  |> Enum.map(fn({_,v}) -> v end)
+                  |> Enum.filter(fn(x) -> String.strip(x["steps"])!= "" || String.strip(x["duration"]) != "" || String.strip(x["calories"]) != "" end)
+        duration = Enum.reduce(details, 0, fn(i,acc) -> parse_int(Integer.parse(i["duration"])) + acc end)
+        email = device_activity_params["email"]
+        user_id = Repo.one(from u in Talky.User, where: u.email == ^email, select: u.id)
+        if user_id do
+            DeviceActivity.insert_record(
+                user_id,
+                assigned_date,
+                duration,
+                details
+            )
+            "Device activity created/updated successfully."
+        else
+           "User Not Found"
+        end
+    catch
+        x -> "Error: #{x}"
     end
     changeset = DeviceActivity.changeset(%DeviceActivity{})
     render(conn, "new.html", changeset: changeset, info: info, device_activity: device_activity_params)
