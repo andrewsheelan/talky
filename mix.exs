@@ -39,10 +39,13 @@ defmodule Talky.Mixfile do
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
      {:httpotion, "~> 3.0.2"},
+     {:httpoison, "~> 0.10.0"},
      {:quantum, ">= 1.8.1"},
      {:mongodb, ">= 0.0.0"},
      {:poolboy, ">= 0.0.0"},
-     {:timex, "~> 3.0"}
+     {:timex, "~> 3.0"},
+     {:export,"~> 0.0.7"},
+     {:erlport, github: "hdima/erlport", manager: :make}
     ]
   end
 

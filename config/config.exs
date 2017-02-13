@@ -24,7 +24,8 @@ config :logger, :console,
 
 # Quantum scheduler configuration
 config :quantum, cron: [
-   "0 * * * *": {Talky.Humanapi.Scheduler, :sync}
+   "0 * * * *": {Talky.Humanapi.Scheduler, :sync},
+   "0 14 * * *": {Talky.Google.Api, :requests}
 ]
 
 # Import environment specific config. This must remain at the bottom
