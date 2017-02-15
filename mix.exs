@@ -18,8 +18,9 @@ defmodule Talky.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Talky, []},
-     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :httpotion, :quantum, :mongodb, :poolboy]]
+     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger,
+                    :gettext, :phoenix_ecto, :postgrex, :httpotion, :quantum,
+                    :mongodb, :poolboy, :amqp]]
   end
 
   # Specifies which paths to compile per environment.
@@ -34,18 +35,19 @@ defmodule Talky.Mixfile do
      {:phoenix_pubsub, "~> 1.0"},
      {:phoenix_ecto, "~> 3.0"},
      {:postgrex, ">= 0.0.0"},
+     {:mongodb, ">= 0.0.0"},
+     {:poolboy, ">= 0.0.0"},
      {:phoenix_html, "~> 2.6"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
      {:httpotion, "~> 3.0.2"},
-     {:httpoison, "~> 0.10.0"},
      {:quantum, ">= 1.8.1"},
-     {:mongodb, ">= 0.0.0"},
-     {:poolboy, ">= 0.0.0"},
      {:timex, "~> 3.0"},
+     {:httpoison, "~> 0.10.0"},
      {:export,"~> 0.0.7"},
-     {:erlport, github: "hdima/erlport", manager: :make}
+     {:erlport, github: "hdima/erlport", manager: :make},
+     {:amqp, "0.2.0-pre.1"}
     ]
   end
 

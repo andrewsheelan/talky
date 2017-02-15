@@ -12,6 +12,7 @@ defmodule Talky do
       supervisor(Talky.Repo, []),
       # Start the endpoint when the application starts
       supervisor(Talky.Endpoint, []),
+      supervisor(Talky.RabbitMQ.Supervisor, []),
       # Start your own worker by calling: Talky.Worker.start_link(arg1, arg2, arg3)
       # worker(Talky.Worker, [arg1, arg2, arg3]),
     ]
