@@ -1,4 +1,5 @@
 defmodule Talky.Google.Api do
+
   use Export.Ruby
   def call(method, params \\ []) do
     {:ok, ruby} = Ruby.start(ruby_lib: Path.expand("lib/google"))
@@ -29,6 +30,7 @@ defmodule Talky.Google.Api do
         )
         IO.puts("Completed report for #{view_name}")
       end
+      IO.puts("Completing report for #{view_name} => #{view_id}")
     end
   end
 

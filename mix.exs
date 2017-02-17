@@ -47,7 +47,8 @@ defmodule Talky.Mixfile do
      {:httpoison, "~> 0.10.0"},
      {:export,"~> 0.0.7"},
      {:erlport, github: "hdima/erlport", manager: :make},
-     {:amqp, "0.2.0-pre.1"}
+     {:amqp, "0.2.0-pre.1"},
+     {:logger_file_backend, "~> 0.0.0"}
     ]
   end
 

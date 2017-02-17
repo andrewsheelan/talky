@@ -7,7 +7,7 @@ defmodule Talky.RabbitMQ.Supervisor do
 
   def init(:ok) do
     children = [
-      worker(Mongo, [[name: :mongo, hostname: "10.0.132.139", database: "collection1", port: 30246, pool: DBConnection.Poolboy]]),
+      worker(Mongo, [[name: :mongo, hostname: "34.197.249.5", database: "collection1", port: 30246, pool: DBConnection.Poolboy]]),
       worker(Talky.RabbitMQ.LogConsumer, [])
     ]
 

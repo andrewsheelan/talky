@@ -18,6 +18,12 @@ defmodule Talky.GoogleReport do
     ]) |> Repo.delete_all
   end
 
+  def clear_records_on(created_date) do
+    from( g in Talky.GoogleReport, where: [
+      created_date: ^created_date
+    ]) |> Repo.delete_all
+  end
+
   def insert_records(
     view_name, view_id, metric, created_date, data
   ) do
